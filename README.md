@@ -25,7 +25,7 @@ This is all about the basic understanding of the developed code.
 
 **Authentication**
 
-Request - `POST /api/register`
+Request - `POST /api/register`  
 Data (raw json) -
 ```json
 {
@@ -38,7 +38,7 @@ Data (raw json) -
 This will create new user in the database and also provide login token, so you don't need to call login api after this api call.
 
 ---
-Request - `POST /api/login`
+Request - `POST /api/login`  
 Data (raw json) -
 ```json
 {
@@ -49,22 +49,22 @@ Data (raw json) -
 This api login with existing database user and provide authencation token. to make calls to the protected urls.
 
 ---
-Request - `POST /api/logout` (no data)
-Policy - authenticated user
+Request - `POST /api/logout` (no data)  
+Policy - authenticated user  
 this will remove all the tokens that are issued for the logged in user.
 
 ---
-Request - `GET /api/user` (no data)
-Policy - authenticated user
+Request - `GET /api/user` (no data)  
+Policy - authenticated user  
 This will return authenticated user.
 
 **Loan**
-Request - `GET /api/loans` (no data)
-Policy - authenticated user
+Request - `GET /api/loans` (no data)  
+Policy - authenticated user  
 This will return all the loan instances that are belongs to the authenticated user.
 
 ---
-Request - `POST /api/loans`
+Request - `POST /api/loans`  
 Data (raw json) -
 ```json
 {
@@ -72,24 +72,28 @@ Data (raw json) -
     "term": 3
 }
 ```
-Policy - authenticated user
+Policy - authenticated user  
 This will create loan request according to the given data. and return the detailed loan object with all the repaymets.
 
 ---
-Request - `GET /api/loans/{loanId}`
-Policy - authenticated user
+Request - `GET /api/loans/{loanId}`  
+Policy - authenticated user  
 This will return the detailed loan object with all the repaymets which belongs to the given loanId.
 
 ---
-Request - `POST /api/loans/{loanId}/pay`
+Request - `POST /api/loans/{loanId}/pay`  
 Data (raw json) -
 ```json
 {
     "amount": 5000
 }
 ```
-Policy - authenticated user
+Policy - authenticated user  
 This will create payment for given amount agains the loan and return detailed loan object with all the repaymets with updated their payment status.
+
+here the there is some constrain as mention in the documentation you can send amount that should be greator than of expected amount, and the expected amount will be calculated by minimum of installment amount or pending amount
+
+installment amount will be total loan amount divided by the terms
 
 **Admin**
 
@@ -102,9 +106,3 @@ _Become an Admin user_
 
 the command will make the normal user to an admin user.
 
-Now lets see admin API
----
-
-Request - `POST /api/logout` (no data)
-Policy - authenticated user
-this will remove all the tokens that are issued for the logged in user.
